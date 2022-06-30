@@ -18,4 +18,18 @@ Clean architecture is a method of software development in which you should be ab
 **Domain:** Contains the business logic of the application. It is the individual and innermost module.</br>
 **Data:** It includes the domain layer. It would implement the interface exposed by domain layer and dispenses data to app
 
+## Tech stack & Open-source libraries
 
+* Kotlin, Coroutines + Flow for asynchronous.
+* Koin for dependency injection.
+* Jetpack Navigation
+* ViewModel - UI related data holder, lifecycle aware.
+* Room Persistence - local database.
+* MVVM Architecture (View - DataBinding - ViewModel - Model)
+* Repository pattern
+* Glide - loading images.
+* Retrofit2 & OkHttp3 - construct the REST APIs and paging network data.
+* Gson - JSON representation.
+* Timber - logging.
+* Material-Components - Material design components.
+* Leak Canary - memory leak detection library for Android.
