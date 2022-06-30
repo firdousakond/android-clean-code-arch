@@ -1,5 +1,3 @@
-## android-clean-code-arch
-
 ## Android Clean Architecture
  
 ## What is Clean Architecture?
@@ -16,8 +14,8 @@ Clean architecture is a method of software development in which you should be ab
 
 ## Layers of clean architecture
 
-**Presentation or APP:** A layer that interacts with the UI, mainly Android Stuff like Activities, Fragments, ViewModel, etc. It would include both domain and data layers.</br>
-**Domain:** Contains the business logic of the application. It is the individual and innermost module. It’s a complete java module.</br>
+**Presentation or UI:** A layer that interacts with the UI, mainly Android Stuff like Activities, Fragments, ViewModel, etc. It is dependent on Use Cases.</br>
+**Domain:** Contains the business logic of the application. It is the individual and innermost module.</br>
 **Data:** It includes the domain layer. It would implement the interface exposed by domain layer and dispenses data to app
 
 
