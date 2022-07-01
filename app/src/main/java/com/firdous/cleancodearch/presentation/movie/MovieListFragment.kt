@@ -14,7 +14,6 @@ import com.firdous.cleancodearch.databinding.FragmentMovieListBinding
 import com.firdous.cleancodearch.domain.model.Movie
 import com.firdous.cleancodearch.util.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -59,7 +58,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initObserver() {
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.movieStateFlow.collect { resource ->
                 when (resource) {
                     is Resource.Loading -> {
