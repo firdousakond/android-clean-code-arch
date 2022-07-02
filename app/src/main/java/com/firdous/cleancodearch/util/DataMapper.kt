@@ -27,14 +27,4 @@ object DataMapper {
                 overview = it.overview
             )
         }
-
-
-    fun mapDomainToEntity(input: Movie) =
-        MovieEntity(
-            id = input.id,
-            title = input.title,
-            posterPath = input.poster_path,
-            releaseDate = input.release_date,
-            overview = input.overview
-        )
 }
