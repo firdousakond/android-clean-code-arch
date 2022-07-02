@@ -31,17 +31,10 @@ val databaseModule = module {
 
     val networkModule = module {
         single {
-//            val hostname = "kitsu.io"
-//            val certificatePinner = CertificatePinner.Builder()
-//                .add(hostname, "sha256/mRjXIIcEJSE3kJl4YNqqfOS+COj4KG3VJPSJo6ymApk=")
-//                .add(hostname, "sha256/FEzVOUp4dF3gI0ZVPRJhFbSJVXR+uQmMH65xhs1glH4=")
-//                .add(hostname, "sha256/Y9mvm0exBk1JoQ57f9Vm28jKo5lFm/woKcVxrYxu80o=")
-//                .build()
             OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
-              //  .certificatePinner(certificatePinner)
                 .build()
         }
         single {
