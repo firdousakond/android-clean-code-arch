@@ -99,23 +99,6 @@ class RemoteDataSourceTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun fetchMovies_onNoData() {
-        runBlockingTest {
-            `when`(apiService.getMovieList(page = 1)).thenReturn(null)
-            val job = launch {
-                remoteDataSource.getMovies(1)
-                    .collect {
-                        assertTrue(it is ApiResponse.Empty)
-                    }
-            }
-
-            verify(apiService, times(1)).getMovieList(page = 1)
-            job.cancel()
-        }
-    }
-
-    @ExperimentalCoroutinesApi
-    @Test
     fun fetchMovies_onError() {
         runBlockingTest {
             `when`(apiService.getMovieList(page = 1)).thenThrow(RuntimeException("Exception Occurred"))
