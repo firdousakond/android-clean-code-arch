@@ -18,6 +18,8 @@ jobs:
         with:
           java-version: 1.8
 
+      image: openjdk:11-jdk
+
       - name: Run Tests
         run: ./gradlew test
 
