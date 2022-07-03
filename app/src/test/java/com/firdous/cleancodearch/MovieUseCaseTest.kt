@@ -68,7 +68,7 @@ class MovieUseCaseTest {
             `when`(movieRepo.fetchMovies(1)).thenReturn(flow)
             movieUseCase.fetchMovies(1)
                 .collect {
-                    movieData = it.data.orEmpty()
+                    movieData = (it as Resource.Success).data
                 }
             verify(movieRepo, times(1)).fetchMovies(1)
             assertTrue(movieData.isNotEmpty())
@@ -82,12 +82,14 @@ class MovieUseCaseTest {
         runBlockingTest {
             var errorMessage = ""
             val flow = flow {
-                emit(Resource.Error(data = null, message = "Something went wrong"))
+                emit(Resource.Error(message = "Something went wrong"))
             }
 
-            `when`(movieRepo.fetchMovies(1)).thenReturn(flow)
-            movieUseCase.fetchMovies(1).collect { errorMessage = it.message.orEmpty() }
-            verify(movieRepo, times(1)).fetchMovies(1)
+            `when`(movieRepo.fetchMovies(anyInt())).thenReturn(flow)
+            movieUseCase.fetchMovies(1).collect {
+                errorMessage = (it as Resource.Error).message
+            }
+            verify(movieRepo, times(1)).fetchMovies(anyInt())
             assertTrue(errorMessage.isNotEmpty())
             assertEquals("Something went wrong", errorMessage)
         }

@@ -46,21 +46,23 @@ class MovieViewModelTest {
         runBlockingTest {
 
             val flow = flow {
-                emit(Resource.Error(message = "Something Went Wrong", data = null))
+                emit(Resource.Error(message = "Something Went Wrong"))
             }
 
-            `when`(movieUseCase.fetchMovies(1)).thenReturn(flow)
+            `when`(movieUseCase.fetchMovies(anyInt())).thenReturn(flow)
 
-            var emittedMovie: Resource<List<Movie>> = Resource.Loading()
+            var emittedError = ""
             val job = launch {
                 movieViewModel.movieStateFlow.collect {
-                    emittedMovie = it
+                    if(it is Resource.Error)
+                    emittedError = it.message
                 }
             }
 
             movieViewModel.fetchMovies()
-            verify(movieUseCase, times(2)).fetchMovies(1)
-            assertEquals("Something Went Wrong",emittedMovie.message)
+            verify(movieUseCase, times(2)).fetchMovies(anyInt())
+            assertTrue(emittedError.isNotEmpty())
+            assertEquals("Something Went Wrong", emittedError)
             job.cancel()
         }
     }
@@ -90,16 +92,18 @@ class MovieViewModelTest {
                 emit(Resource.Success(data))
             }
 
-            `when`(movieUseCase.fetchMovies(1)).thenReturn(flow)
+            `when`(movieUseCase.fetchMovies(anyInt())).thenReturn(flow)
 
             var emittedMovie: List<Movie> = ArrayList()
             val job = launch {
                 movieViewModel.movieStateFlow.collect {
-                    emittedMovie = it.data.orEmpty()
+                    if(it is Resource.Success) {
+                        emittedMovie = it.data
+                    }
                 }
             }
             movieViewModel.fetchMovies()
-            verify(movieUseCase, times(2)).fetchMovies(1)
+            verify(movieUseCase, times(2)).fetchMovies(anyInt())
             assertTrue(emittedMovie.isNotEmpty())
             assertEquals(2, emittedMovie.size)
             assertEquals("Doctor Strange", emittedMovie[1].title)
