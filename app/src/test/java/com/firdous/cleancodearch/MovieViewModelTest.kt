@@ -6,11 +6,10 @@ import com.firdous.cleancodearch.domain.model.Movie
 import com.firdous.cleancodearch.domain.usecase.MovieUseCase
 import com.firdous.cleancodearch.presentation.movie.MovieViewModel
 import com.firdous.cleancodearch.utils.CoroutineTestRule
+import com.firdous.cleancodearch.utils.runBlockingTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MovieViewModelTest {
 
@@ -43,7 +43,7 @@ class MovieViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun loadMovies_onError() {
-        runBlockingTest {
+        testCoroutineRule.runBlockingTest {
 
             val flow = flow {
                 emit(Resource.Error(message = "Something Went Wrong"))
@@ -70,7 +70,7 @@ class MovieViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun loadMovies_onSuccess() {
-        runBlockingTest {
+        testCoroutineRule.runBlockingTest {
             val data = listOf(
                 Movie(
                     id = 10,

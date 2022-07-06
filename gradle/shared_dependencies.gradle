@@ -7,9 +7,9 @@ dependencies {
     testImplementation "io.insert-koin:koin-test:$koin_version"
 
     //co-routines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3"
 
     //Room
     def roomVersion = "2.4.2"

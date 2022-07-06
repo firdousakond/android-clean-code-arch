@@ -1,17 +1,13 @@
 package com.firdous.cleancodearch
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.firdous.cleancodearch.data.Resource
 import com.firdous.cleancodearch.domain.model.Movie
 import com.firdous.cleancodearch.domain.repository.IMovieRepo
 import com.firdous.cleancodearch.domain.usecase.MovieUseCaseImpl
-import com.firdous.cleancodearch.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -20,14 +16,9 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MovieUseCaseTest {
-
-    @get:Rule
-    val testInstantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val testCoroutineRule = CoroutineTestRule()
 
     private lateinit var movieUseCase: MovieUseCaseImpl
 
@@ -42,7 +33,7 @@ class MovieUseCaseTest {
     @ExperimentalCoroutinesApi
     @Test
     fun fetchMovies_onSuccess() {
-        runBlockingTest {
+       runTest {
             val data = listOf(
                 Movie(
                     id = 10,
@@ -79,7 +70,7 @@ class MovieUseCaseTest {
     @ExperimentalCoroutinesApi
     @Test
     fun fetchMovies_onError() {
-        runBlockingTest {
+        runTest {
             var errorMessage = ""
             val flow = flow {
                 emit(Resource.Error(message = "Something went wrong"))
