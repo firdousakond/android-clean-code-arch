@@ -1,16 +1,12 @@
 package com.firdous.cleancodearch
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.firdous.cleancodearch.data.source.local.LocalDataSource
 import com.firdous.cleancodearch.data.source.local.entity.MovieEntity
 import com.firdous.cleancodearch.data.source.local.room.MovieDao
-import com.firdous.cleancodearch.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -19,14 +15,9 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class LocalDataSourceTest {
-
-    @get:Rule
-    val testInstantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val testCoroutineRule = CoroutineTestRule()
 
     private lateinit var localDataSource: LocalDataSource
 
@@ -41,7 +32,7 @@ class LocalDataSourceTest {
     @ExperimentalCoroutinesApi
     @Test
     fun fetchMovies_onSuccess() {
-        runBlockingTest {
+        runTest {
             val data = listOf(
                 MovieEntity(
                     id = 10,
@@ -75,7 +66,7 @@ class LocalDataSourceTest {
     @ExperimentalCoroutinesApi
     @Test
     fun insertMovies_onSuccess() {
-        runBlockingTest {
+        runTest {
             val data = listOf(
                 MovieEntity(
                     id = 50,

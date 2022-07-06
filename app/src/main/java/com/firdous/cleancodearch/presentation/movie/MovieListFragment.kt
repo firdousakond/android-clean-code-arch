@@ -34,7 +34,6 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
             val linearLayoutManager = LinearLayoutManager(requireContext())
             movieAdapter = MovieAdapter { item -> showMovieDetails(item) }
             scrollListener = RecyclerViewLoadMoreScroll(linearLayoutManager)
@@ -53,8 +52,6 @@ class MovieListFragment : Fragment() {
                 }
             })
             initObserver()
-
-        }
     }
 
     private fun initObserver() {
@@ -68,14 +65,14 @@ class MovieListFragment : Fragment() {
                     is Resource.Success -> {
                         binding.progressBar.hide()
                         movieAdapter.removeLoadingView()
-                        movieAdapter.addData(resource.data.orEmpty())
+                        movieAdapter.addData(resource.data)
                         scrollListener.setLoaded()
                     }
                     is Resource.Error -> {
                         scrollListener.setLoaded()
                         binding.progressBar.hide()
                         activity?.showToast(
-                            resource.message ?: getString(R.string.msg_server_error)
+                            resource.message
                         )
                     }
                 }

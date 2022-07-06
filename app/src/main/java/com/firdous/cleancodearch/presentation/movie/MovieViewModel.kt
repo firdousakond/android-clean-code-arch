@@ -15,7 +15,7 @@ class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
 
     var page: Int = 1
 
-    private var _movieStateFlow = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    private var _movieStateFlow = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading)
     val movieStateFlow: StateFlow<Resource<List<Movie>>> = _movieStateFlow
 
     init {
@@ -26,12 +26,11 @@ class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
         viewModelScope.launch {
             useCase.fetchMovies(page)
                 .catch { e ->
-                    _movieStateFlow.value = Resource.Error(e.toString(), null)
+                    _movieStateFlow.value = Resource.Error(e.toString())
                 }
                 .collect {
                     _movieStateFlow.value = it
                 }
         }
     }
-
 }

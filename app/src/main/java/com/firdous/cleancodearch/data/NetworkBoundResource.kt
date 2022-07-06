@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private var result: Flow<Resource<ResultType>> = flow {
-        emit(Resource.Loading())
+        emit(Resource.Loading)
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
             when (val apiResponse = createCall().first()) {
@@ -19,7 +19,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
-                    emit(Resource.Error(apiResponse.errorMessage, null))
+                    emit(Resource.Error(apiResponse.errorMessage))
                 }
             }
         } else {

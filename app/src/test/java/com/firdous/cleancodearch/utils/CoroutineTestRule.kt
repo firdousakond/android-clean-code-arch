@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@ExperimentalCoroutinesApi
 class CoroutineTestRule : TestWatcher() {
 
     internal val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
