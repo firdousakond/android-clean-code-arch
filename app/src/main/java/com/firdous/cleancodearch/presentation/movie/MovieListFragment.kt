@@ -34,6 +34,7 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        print("develop commit")
             val linearLayoutManager = LinearLayoutManager(requireContext())
             movieAdapter = MovieAdapter { item -> showMovieDetails(item) }
             scrollListener = RecyclerViewLoadMoreScroll(linearLayoutManager)
